@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat | Agentic RAG</title>
+    <link rel="stylesheet" href="css/chat.css">
+    <script src="js/chat.js" defer></script>
+</head>
+<body>
+    <div class="chat-app">
+        <header class="chat-header">
+            <div class="brand">
+                <div class="brand-title">Agentic RAG</div>
+                <div class="brand-subtitle">Procedural Memory</div>
+            </div>
+            <div class="header-actions">
+                <span id="userName" class="user-name">User</span>
+                <button id="logoutButton" type="button" class="logout-button">Logout</button>
+            </div>
+        </header>
+        <main id="messages" class="messages">
+            <div id="welcomeMessage" class="welcome-message">
+                <h2>How can I help you?</h2>
+                <p>Ask a question about the available company information.</p>
+            </div>
+        </main>
+        <div id="typingIndicator" class="typing-indicator hidden">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span class="typing-text">Thinking...</span>
+        </div>
+        <footer class="input-area">
+            <div class="input-wrapper">
+                <textarea id="messageInput" rows="1" placeholder="Type your message..." autocomplete="off"></textarea>
+                <button id="sendButton" type="button" class="send-button">Send</button>
+            </div>
+            <div id="status" class="status"></div>
+        </footer>
+    </div>
+</body>
+</html>

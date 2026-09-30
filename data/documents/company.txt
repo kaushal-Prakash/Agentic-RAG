@@ -1,0 +1,458 @@
+COMPANY KNOWLEDGE BASE
+
+1. COMPANY OVERVIEW
+
+Our company provides cloud-based software solutions for businesses that
+need reliable tools for managing their daily operations, customer
+interactions, and business workflows.
+
+Our software is delivered through cloud-based services, allowing
+customers to access supported applications without maintaining their
+own application servers.
+
+Customers can use our platform to manage business processes, access
+software features, and interact with support services through the
+customer portal.
+
+Our services are designed for both standard business customers and
+enterprise customers. Enterprise customers receive additional support
+priority and service benefits.
+
+
+2. CUSTOMER SUPPORT
+
+Our standard customer support hours are Monday through Friday,
+9 AM to 6 PM.
+
+Standard support is available during normal business hours.
+
+Customers can contact the support team through two primary channels:
+
+- Email support
+- Customer portal
+
+The customer portal is the preferred method for submitting support
+requests because it allows customers to provide details about their
+issue and track the progress of their request.
+
+Customers should include a clear description of their problem when
+contacting support.
+
+Useful information for a support request may include the affected
+feature, the steps that caused the problem, the approximate time when
+the problem occurred, and any relevant error message.
+
+Support requests submitted outside standard support hours are handled
+during the next available support period.
+
+
+3. ENTERPRISE SUPPORT
+
+Enterprise customers receive priority support.
+
+Priority support means that enterprise customer requests are given
+higher priority than standard customer requests.
+
+Enterprise customers should use the customer portal or their designated
+support contact when submitting support requests.
+
+Enterprise support is intended for organizations that require a higher
+level of assistance for business-critical software operations.
+
+The availability of specific enterprise services may depend on the
+customer's agreement and service plan.
+
+
+4. CUSTOMER PORTAL
+
+The customer portal provides customers with a central location for
+interacting with the company's support services.
+
+Customers can use the portal to submit support requests and provide
+additional information about an existing issue.
+
+The portal can also be used to communicate with the support team about
+open requests.
+
+Customers should keep their contact information up to date so that the
+support team can communicate with them when additional information is
+required.
+
+If a customer is unable to access the customer portal, the customer may
+contact support through the available email support channel.
+
+
+5. EMAIL SUPPORT
+
+Customers can contact support through the company's email support
+channel.
+
+Email support can be used to report technical issues, request
+assistance, and provide additional information about an existing
+problem.
+
+When sending an email to support, customers should include sufficient
+details to help the support team understand the issue.
+
+A useful support email should normally contain:
+
+- A description of the problem
+- The affected product or feature
+- Steps that reproduce the problem
+- Relevant error messages
+- The approximate time the problem occurred
+- Any other information that may help reproduce the issue
+
+Providing complete information can help the support team investigate the
+issue more efficiently.
+
+
+6. SUPPORT PRIORITY
+
+Support requests are handled according to the customer's support level
+and the nature of the issue.
+
+Enterprise customers receive priority support.
+
+For standard customers, support requests are handled through the
+standard support process.
+
+Issues that prevent customers from using important software features
+may require additional investigation by the support team.
+
+Customers should clearly explain the business impact of an issue when
+submitting a support request.
+
+The support team may request additional information before beginning or
+completing an investigation.
+
+
+7. BILLING AND PAYMENTS
+
+Customers may have questions regarding subscriptions, invoices,
+payments, or other account-related billing information.
+
+Billing-related questions should be submitted through the customer
+portal or the available support email channel.
+
+Customers should include their account information and a description of
+the billing issue when contacting support.
+
+The support team may request additional information to verify the
+account and investigate a billing-related request.
+
+Billing questions submitted outside standard support hours are handled
+during the next available support period.
+
+
+8. SUBSCRIPTIONS
+
+Customers receive access to software services according to their
+subscription or service agreement.
+
+The features and services available to a customer may depend on the
+customer's selected plan.
+
+Enterprise customers may have service arrangements that differ from
+standard customer subscriptions.
+
+Customers who have questions about their subscription should contact
+support through the customer portal or email.
+
+
+9. REFUNDS
+
+Refund requests must be submitted through the customer support
+channels.
+
+Customers requesting a refund should provide information about the
+relevant subscription or transaction and explain the reason for the
+request.
+
+Refund requests are reviewed by the appropriate support or billing
+team.
+
+Submitting a refund request does not automatically guarantee that a
+refund will be approved.
+
+The outcome of a refund request may depend on the applicable subscription
+terms and the circumstances of the request.
+
+
+10. CANCELLATION
+
+Customers who want to cancel a subscription should contact the support
+team through the customer portal or email.
+
+Cancellation requests should include enough account information for the
+support team to identify the relevant subscription.
+
+Customers should submit cancellation requests before the next billing
+period when possible.
+
+The support team may provide additional instructions depending on the
+customer's subscription.
+
+
+11. ACCOUNT MANAGEMENT
+
+Customers are responsible for maintaining accurate account information.
+
+Account-related questions can be submitted through the customer portal
+or email support.
+
+Customers should contact support if they experience problems accessing
+their account or using account-related features.
+
+For security reasons, support may request additional information before
+making changes to account-related settings.
+
+
+12. SECURITY
+
+The company takes reasonable measures to protect its cloud-based
+software services and customer information.
+
+Customers should protect their account credentials and should not share
+passwords with other people.
+
+Customers should contact support if they believe that their account has
+been accessed without authorization.
+
+Security-related concerns should be reported as soon as possible so
+that the appropriate team can investigate the issue.
+
+
+13. DATA PRIVACY
+
+Customer information is handled according to the company's applicable
+privacy and data-handling policies.
+
+Customers should avoid including unnecessary sensitive information when
+submitting a support request.
+
+If sensitive information is required for an investigation, customers
+should follow the instructions provided by the support team.
+
+Questions about data handling and privacy can be directed to the
+appropriate support channel.
+
+
+14. SOFTWARE ACCESS
+
+The company's software services are provided through cloud-based
+infrastructure.
+
+Customers generally access supported services through the interfaces
+provided by the company.
+
+Access to particular features depends on the customer's account and
+subscription.
+
+If a customer cannot access an expected feature, the customer should
+contact support and provide details about the account and the affected
+feature.
+
+
+15. TECHNICAL SUPPORT
+
+Technical support assists customers with problems involving the
+company's software services.
+
+Technical support may help customers investigate:
+
+- Application errors
+- Access problems
+- Feature-related problems
+- Unexpected software behavior
+- Configuration questions
+- Customer portal issues
+
+Customers should provide reproducible steps whenever possible.
+
+If an issue cannot be reproduced immediately, the support team may
+request additional information such as screenshots, error messages, or
+timestamps.
+
+
+16. SERVICE AVAILABILITY
+
+The company's software services are cloud-based and are intended to be
+available to customers through the supported service interfaces.
+
+Temporary service interruptions may occur because of maintenance,
+technical problems, infrastructure issues, or other operational events.
+
+Customers experiencing an unexpected service interruption should
+contact support through the customer portal or email.
+
+The support team may investigate the issue and provide additional
+information about the service status when available.
+
+
+17. CUSTOMER RESPONSIBILITIES
+
+Customers are responsible for using the company's services according
+to the applicable service terms.
+
+Customers should maintain secure access to their accounts.
+
+Customers should provide accurate information when submitting support
+requests.
+
+Customers should cooperate with support investigations by providing
+relevant technical details when requested.
+
+Customers should avoid submitting unnecessary confidential or sensitive
+information through support channels.
+
+
+18. TECHNICAL REQUIREMENTS
+
+Customers accessing cloud-based software services need a supported
+device and a compatible software environment.
+
+Customers should use a modern and supported web browser when accessing
+web-based interfaces.
+
+Network connectivity is required to access cloud-based services.
+
+If a customer experiences connectivity-related problems, the customer
+should verify their local network connection before contacting support.
+
+If the problem continues, the customer can submit a support request
+with details about the affected service and the observed behavior.
+
+
+19. FREQUENTLY ASKED QUESTIONS
+
+Q: What are the standard support hours?
+
+A: Standard support hours are Monday through Friday, 9 AM to 6 PM.
+
+
+Q: How can I contact customer support?
+
+A: Customers can contact support through email or the customer portal.
+
+
+Q: Do enterprise customers receive priority support?
+
+A: Yes. Enterprise customers receive priority support.
+
+
+Q: Can I submit a support request outside standard support hours?
+
+A: Yes. Customers can submit requests through the available support
+channels outside standard support hours. Such requests are handled
+during the next available support period.
+
+
+Q: What information should I include in a support request?
+
+A: Customers should provide a clear description of the problem,
+reproduction steps when possible, relevant error messages, and other
+details that may help the support team investigate the issue.
+
+
+Q: What should I do if I cannot access the customer portal?
+
+A: Customers can contact support through the available email support
+channel.
+
+
+Q: How do I request a refund?
+
+A: Refund requests should be submitted through the customer support
+channels with relevant subscription or transaction information.
+
+
+Q: Is a refund automatically guaranteed after submitting a request?
+
+A: No. Refund requests are reviewed and approval depends on the
+applicable subscription terms and circumstances.
+
+
+Q: How do I cancel my subscription?
+
+A: Customers should contact support through the customer portal or
+email and provide the relevant account information.
+
+
+Q: What should I do if I suspect unauthorized account access?
+
+A: Customers should contact support as soon as possible and report the
+suspected unauthorized access.
+
+
+Q: What should I do if the software is not working correctly?
+
+A: Customers should contact technical support and provide a clear
+description of the issue, reproduction steps, error messages, and any
+other relevant information.
+
+
+Q: Can enterprise customers receive different services from standard
+customers?
+
+A: Enterprise customers may have service arrangements that differ from
+standard customer subscriptions.
+
+
+20. SUPPORT REQUEST EXAMPLES
+
+Example 1:
+
+A customer cannot access a software feature and receives an error
+message. The customer should submit a support request through the
+customer portal or email and include the error message and steps that
+caused the problem.
+
+
+Example 2:
+
+An enterprise customer experiences a business-critical problem. The
+customer should submit the issue through the customer portal or their
+designated support contact because enterprise customers receive
+priority support.
+
+
+Example 3:
+
+A customer wants to request a refund. The customer should contact
+support and provide information about the relevant subscription or
+transaction.
+
+
+Example 4:
+
+A customer wants to cancel a subscription. The customer should contact
+support through the customer portal or email and provide the relevant
+account information.
+
+
+Example 5:
+
+A customer submits a support request outside standard support hours.
+The request can still be submitted, but it will be handled during the
+next available support period.
+
+
+21. IMPORTANT COMPANY FACTS
+
+The following facts are part of the company's official knowledge base:
+
+- The company provides cloud-based software solutions.
+- Standard support hours are Monday through Friday, 9 AM to 6 PM.
+- Customers can contact support through email.
+- Customers can contact support through the customer portal.
+- Enterprise customers receive priority support.
+- Customers should provide relevant information when submitting
+  support requests.
+- Support requests submitted outside standard support hours are handled
+  during the next available support period.
+- Refund requests are reviewed and are not automatically guaranteed.
+- Subscription cancellation requests should be submitted through the
+  available support channels.
+- Customers should report suspected unauthorized account access to
+  support as soon as possible.

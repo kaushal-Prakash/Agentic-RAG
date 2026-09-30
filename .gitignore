@@ -1,0 +1,33 @@
+# Virtual environment
+env1/
+env/
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Pytest
+.pytest_cache/
+
+# Environment variables
+.env
+
+# Local database
+data/app.db
+data/app.db-*
+data/app.db-journal
+data/app.db-wal
+data/app.db-shm
+
+# Chroma vector store
+data/chroma/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
