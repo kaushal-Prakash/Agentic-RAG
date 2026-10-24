@@ -11,11 +11,13 @@ from app.rag.clustering import (
 )
 from app.services.vector_store import add_documents
 
+# Splits text into 800-char segments with 100-char overlap to preserve boundary context
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=800,
     chunk_overlap=100,
 )
 
+# Routes document loading based on file extension (.pdf, .docx, .txt)
 def load_document(file_path: str):
     path = Path(file_path)
     if path.suffix.lower() == ".pdf":
@@ -36,6 +38,7 @@ def load_document(file_path: str):
 def split_documents(documents):
     return text_splitter.split_documents(documents)
 
+# Annotates chunks with sequential IDs and preserves document source for citations
 def add_metadata(documents):
     for index, document in enumerate(documents):
         document.metadata["chunk_id"] = index
@@ -45,6 +48,7 @@ def add_metadata(documents):
         )
     return documents
 
+# Computes KMeans clusters, tags chunks with cluster_id, and saves centroid vectors to disk
 def cluster_documents(
     documents,
     num_clusters: int = 5,
@@ -57,6 +61,7 @@ def cluster_documents(
         texts,
         num_clusters,
     )
+    # Tag each chunk with its assigned cluster for partition-filtered retrieval in Chroma
     for document, cluster_id in zip(
         documents,
         labels,
@@ -65,6 +70,7 @@ def cluster_documents(
     save_cluster_centroids(centroids)
     return documents
 
+# End-to-end ingestion: load -> chunk -> tag metadata -> cluster -> store in Chroma
 def ingest_document(
     file_path: str,
     num_clusters: int = 5,
