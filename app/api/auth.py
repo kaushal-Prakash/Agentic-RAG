@@ -28,11 +28,12 @@ class AuthResponse(BaseModel):
 @router.post("/register", response_model=AuthResponse)
 async def register(
     data: RegisterRequest,
-    db: AsyncSession = Depends(get_db),
+    db: AsyncSession = Depends(get_db),  # Injects request-scoped DB session
 ):
     result = await db.execute(
         select(User).where(User.username == data.username)
     )
+    # Returns the single User object, None if not found, or errors if multiple
     existing_user = result.scalar_one_or_none()
     if existing_user:
         raise HTTPException(
@@ -42,11 +43,11 @@ async def register(
     user = User(
         name=data.name,
         username=data.username,
-        password_hash=hash_password(data.password),
+        password_hash=hash_password(data.password),  # Hash password before persisting
     )
     db.add(user)
     await db.commit()
-    await db.refresh(user)
+    await db.refresh(user)  # Reloads instance to fetch generated fields (e.g., user.id)
     token = create_access_token(user.id)
     return AuthResponse(
         access_token=token,
@@ -65,6 +66,7 @@ async def login(
         select(User).where(User.username == data.username)
     )
     user = result.scalar_one_or_none()
+    # Combined check prevents username enumeration attacks
     if not user or not verify_password(
         data.password,
         user.password_hash,
