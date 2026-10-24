@@ -37,6 +37,7 @@ async def update_memory_in_background(
     This runs in the background after the chat response has been sent,
     so the user does not wait for the procedural-memory LLM call.
     """
+    # Separate session required: request DB session closes once response is returned
     async with AsyncSessionLocal() as db:
         try:
             await update_procedural_memory(
@@ -55,6 +56,7 @@ async def chat(
     user_id: int = Depends(get_current_user_id),
     db: AsyncSession = Depends(get_db),
 ):
+    # Fetch recent turns (last 4 messages) for short-term context
     chat_history = await get_chat_history(
         db=db,
         user_id=user_id,
@@ -64,7 +66,7 @@ async def chat(
         db=db,
         user_id=user_id,
     )
-    cluster_centroids = load_cluster_centroids()
+    cluster_centroids = load_cluster_centroids()  # Semantic cluster centers for retrieval gating
     initial_state = {
         "user_id": user_id,
         "query": data.message,
@@ -72,6 +74,7 @@ async def chat(
         "chat_history": chat_history,
         "procedural_memory": procedural_memory,
     }
+    # Execute compiled LangGraph agent workflow
     result = await agent_graph.ainvoke(
         initial_state
     )
@@ -88,6 +91,7 @@ async def chat(
         role="assistant",
         content=response,
     )
+    # Offload memory extraction to background to avoid blocking the user response
     background_tasks.add_task(
         update_memory_in_background,
         user_id,
