@@ -7,11 +7,13 @@ from sklearn.cluster import KMeans
 from app.config import settings
 from app.services.embeddings import embed_documents
 
+# Location to persist cluster centroids alongside vector store
 CENTROID_FILE = (
     Path(settings.chroma_persist_directory)
     / "cluster_centroids.json"
 )
 
+# Groups document chunks into k semantic clusters and calculates their central vectors
 def create_clusters(
     texts: list[str],
     num_clusters: int,
@@ -20,16 +22,19 @@ def create_clusters(
         return [], {}
     if num_clusters <= 0:
         raise ValueError("num_clusters must be greater than zero")
+    # Prevent error: clusters cannot exceed the number of available text chunks
     num_clusters = min(num_clusters, len(texts))
     embeddings = np.array(
         embed_documents(texts)
     )
+    # Fit KMeans: fixed seed for reproducibility across ingestion runs
     model = KMeans(
         n_clusters=num_clusters,
         random_state=42,
         n_init="auto",
     )
-    labels = model.fit_predict(embeddings)
+    labels = model.fit_predict(embeddings)  # Cluster assignment per chunk
+    # Extract center coordinates of each cluster for semantic gating
     centroids = {
         cluster_id: centroid.tolist()
         for cluster_id, centroid in enumerate(
@@ -38,6 +43,7 @@ def create_clusters(
     }
     return labels.tolist(), centroids
 
+# Persist centroids to disk as JSON
 def save_cluster_centroids(
     centroids: dict[int, list[float]],
 ) -> None:
@@ -54,6 +60,7 @@ def save_cluster_centroids(
             file,
         )
 
+# Load centroids from disk (converts JSON string keys back to integer IDs)
 def load_cluster_centroids() -> dict[int, list[float]]:
     if not CENTROID_FILE.exists():
         return {}
