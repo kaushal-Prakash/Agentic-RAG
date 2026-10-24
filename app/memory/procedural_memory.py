@@ -40,6 +40,7 @@ Do not return labels such as:
 Keep the memory concise.
 """
 
+# Cleans LLM output, strips common meta-labels, and handles "no change" responses
 def normalize_memory_output(
     updated_memory: str,
     existing_memory: str,
@@ -48,6 +49,7 @@ def normalize_memory_output(
     existing_memory = existing_memory.strip()
     if not updated_memory:
         return existing_memory
+    # Strip conversational headers models sometimes output despite prompt rules
     prefixes = [
         "Existing procedural memory:",
         "Updated procedural memory:",
@@ -57,6 +59,7 @@ def normalize_memory_output(
     for prefix in prefixes:
         if updated_memory.lower().startswith(prefix.lower()):
             updated_memory = updated_memory[len(prefix):].strip()
+    # If LLM returned a keyword indicating nothing changed, retain existing memory
     unchanged_values = {
         "unchanged",
         "(unchanged)",
@@ -71,6 +74,7 @@ def normalize_memory_output(
         return existing_memory
     return updated_memory
 
+# Fetches user's saved preferences/instructions, returning empty string if not found
 async def get_procedural_memory(
     db: AsyncSession,
     user_id: int,
@@ -98,7 +102,7 @@ async def update_procedural_memory(
     prompt = ChatPromptTemplate.from_template(
         MEMORY_UPDATE_PROMPT
     )
-    chain = prompt | get_response_llm()
+    chain = prompt | get_response_llm()  # LCEL pipe: formats prompt and invokes LLM
     result = await chain.ainvoke(
         {
             "existing_memory": existing_memory,
@@ -106,6 +110,7 @@ async def update_procedural_memory(
             "assistant_response": assistant_response,
         }
     )
+    # Sanitize LLM output and fallback to existing memory if no new preference was formed
     updated_memory = normalize_memory_output(
         updated_memory=result.content,
         existing_memory=existing_memory,
@@ -116,6 +121,7 @@ async def update_procedural_memory(
         )
     )
     memory = query.scalar_one_or_none()
+    # Upsert: insert on first interaction, otherwise update existing record
     if memory is None:
         memory = ProceduralMemory(
             user_id=user_id,
