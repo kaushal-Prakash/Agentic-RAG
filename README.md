@@ -222,7 +222,49 @@ Agentic RAG Pipeline
 Groq LLM
 ```
 
-Persistent application data and Chroma storage are mounted through Docker volumes.
+### Running with Docker
+
+#### 1. Prepare Environment Variables
+Ensure a `.env` file exists in the project root containing your API keys and configuration:
+
+```env
+GROQ_API_KEY=your_groq_api_key
+JWT_SECRET_KEY=your_secret_key
+```
+
+#### 2. Build the Docker Image
+```bash
+docker build -t agentic-rag .
+```
+
+#### 3. Run the Container
+
+**Linux / macOS / PowerShell:**
+```bash
+docker run -d \
+  --name agentic-rag-app \
+  -p 8000:8000 \
+  --env-file .env \
+  -v ${PWD}/data:/project/data \
+  agentic-rag
+```
+
+**Windows (Command Prompt):**
+```cmd
+docker run -d --name agentic-rag-app -p 8000:8000 --env-file .env -v "%cd%/data:/project/data" agentic-rag
+```
+
+> **Note:** Mounting the `./data` directory ensures that SQLite database records (`app.db`) and Chroma vector store embeddings persist across container restarts.
+
+#### 4. Verify Application
+- Health check: [http://localhost:8000/health](http://localhost:8000/health)
+- API documentation (Swagger): [http://localhost:8000/docs](http://localhost:8000/docs)
+
+#### 5. Stop the Container
+```bash
+docker stop agentic-rag-app
+docker rm agentic-rag-app
+```
 
 ---
 
