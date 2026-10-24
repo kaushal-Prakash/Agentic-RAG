@@ -170,3 +170,49 @@ Runs asynchronously after the HTTP response has already completed:
    - Calls **`normalize_memory_output()`** to strip meta-labels and handle fallback keywords (like `"unchanged"` or `"none"`).
    - Performs a database upsert: adds a new `ProceduralMemory` record if first interaction, otherwise updates `memory.memory` in place.
    - Commits the transaction.
+
+---
+
+## 4. Key Concepts Explained in Simple Terms
+
+If you are new to LangGraph or the machine learning concepts in this project, here is a plain-English explanation of **Nodes**, **Graphs**, and **Clusters**.
+
+---
+
+### A. What is a Node?
+- **Analogy:** Think of an assembly line in a factory. A **Node** is an individual worker at a single workstation who specializes in one task.
+- **In Python:** A Node is simply a standard Python function (e.g., `retrieve_node`, `filter_context_node`).
+- **How it works:**
+  1. A shared clipboard (`AgentState`) arrives at the worker's desk.
+  2. The worker reads the information they need (for example, the user's question).
+  3. The worker does their specific job (for example, queries the database).
+  4. The worker writes their new findings back onto the clipboard (for example, `retrieved_documents`) and hands it to the next workstation.
+- **When is it called?** Nodes are executed sequentially or conditionally by the graph during a chat request.
+
+---
+
+### B. What is a Graph?
+- **Analogy:** The **Graph** is the factory manager and floor plan. It dictates the order of workstations and makes traffic decisions at intersections.
+- **In Python:** Built using LangGraph (`StateGraph(AgentState)` in `app/graph/graph.py`).
+- **Why not just write normal `if/else` code?**
+  - In a standard script, complex multi-step AI pipelines become messy, hard to track, and difficult to inspect.
+  - A graph cleanly defines **Nodes** (steps) and **Edges** (connections).
+  - It allows **Conditional Routing** (`retrieval_router`): If the retrieval gate decides no company search is needed (e.g., user said *"Hi, how are you?"*), the graph intelligently skips the database search and context filter, routing the request directly to the response writer.
+- **When is it called?** The entire graph runs whenever `await agent_graph.ainvoke(initial_state)` is triggered inside the `/api/chat` endpoint.
+
+---
+
+### C. What is a Cluster?
+- **Analogy:** Imagine a huge library with 10,000 document pages. If you look for an answer page by page, it takes a long time and brings up irrelevant pages. Instead, the librarian organizes the pages into **colored shelves / topical rooms** (Clusters):
+  - *Cluster 0:* HR & Leave Policies
+  - *Cluster 1:* Engineering & Technical Architecture
+  - *Cluster 2:* Finance & Reimbursements
+  - *Centroid:* The summary sign hanging above each room describing what's inside.
+- **In Python:** Created using Scikit-Learn's KMeans algorithm (`app/rag/clustering.py`). Each document chunk is embedded into numbers and grouped into $k$ semantic clusters. The average vector of each group is saved as the **Centroid**.
+- **How it works & Why it matters:**
+  1. **Quick Gating Decision:** When a user asks *"How many vacation days do I get?"*, we don't scan thousands of chunks. We compare the question only against the room signs (the 5 centroids). If similarity is above 0.45, we know it's a valid company question and select Cluster 0.
+  2. **Fast & Focused Search:** When querying Chroma, we tell it: `filter={"cluster_id": 0}`. Chroma searches only the HR shelf rather than the entire library.
+- **When are they called?**
+  - **At Ingestion Time (Setup):** `create_clusters()` and `save_cluster_centroids()` run when documents are first loaded and prepared.
+  - **At Query Time (Every Chat Message):** `load_cluster_centroids()` loads the room signs from disk, and `should_retrieve()` checks the incoming query against them to decide whether to search and which cluster to target.
+
