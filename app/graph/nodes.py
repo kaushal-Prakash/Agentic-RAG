@@ -11,6 +11,7 @@ from app.services.embeddings import embed_text
 from app.services.llm import get_filter_llm, get_response_llm
 
 
+# Node: Generates dense vector embedding for incoming user query
 def embed_query_node(state: AgentState) -> AgentState:
     query_embedding = embed_text(state["query"])
     return {
@@ -18,6 +19,7 @@ def embed_query_node(state: AgentState) -> AgentState:
     }
 
 
+# Node: Evaluates query against cluster centroids to decide if RAG is needed
 def retrieval_gate_node(state: AgentState) -> AgentState:
     retrieve, cluster_id, similarity = should_retrieve(
         state["query_embedding"],
@@ -30,6 +32,7 @@ def retrieval_gate_node(state: AgentState) -> AgentState:
     }
 
 
+# Node: Performs vector search narrowed to the selected document cluster
 def retrieve_node(state: AgentState) -> AgentState:
     cluster_id = state.get("selected_cluster_id")
     if cluster_id is None:
@@ -45,12 +48,14 @@ def retrieve_node(state: AgentState) -> AgentState:
     }
 
 
+# Node: Uses LLM to filter and extract relevant facts from multiple retrieved chunks
 def filter_context_node(state: AgentState) -> AgentState:
     documents = state.get("retrieved_documents", [])
     if not documents:
         return {
             "filtered_context": "",
         }
+    # Fast path: single chunk is passed directly without an extra LLM call
     if len(documents) == 1:
         return {
             "filtered_context": documents[0].page_content,
@@ -74,6 +79,7 @@ def filter_context_node(state: AgentState) -> AgentState:
     }
 
 
+# Node: Generates final answer combining RAG context, chat history, and procedural memory
 def generate_response_node(state: AgentState) -> AgentState:
     prompt = ChatPromptTemplate.from_template(
         FINAL_ANSWER_PROMPT
