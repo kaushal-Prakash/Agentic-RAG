@@ -12,7 +12,9 @@ An end-to-end Agentic RAG system designed to provide context-aware responses fro
 - [Project Structure](#project-structure)
 - [LangSmith Observability](#langsmith-observability)
 - [JMeter Load Testing](#jmeter-load-testing)
-- [Deployment](#deployment)
+- [Deployment & How to Run](#deployment--how-to-run)
+  - [Option 1: Running with Docker](#option-1-running-with-docker)
+  - [Option 2: Running without Docker](#option-2-running-without-docker-local-python)
 - [License](#license)
 - [Contact](#contact)
 
@@ -204,16 +206,16 @@ During the load test, the external Groq API reached its **8,000 tokens-per-minut
 
 ---
 
-## Deployment
+## Deployment & How to Run
 
-The application is containerized using Docker and deployed on AWS EC2.
+The application is containerized using Docker and deployed on AWS EC2, or can be run locally.
 
 ```text
 User
  ↓
-Frontend
+Frontend (Port 5500)
  ↓
-FastAPI
+FastAPI (Port 8000)
  ↓
 LangGraph
  ↓
@@ -222,49 +224,122 @@ Agentic RAG Pipeline
 Groq LLM
 ```
 
-### Running with Docker
+---
 
-#### 1. Prepare Environment Variables
-Ensure a `.env` file exists in the project root containing your API keys and configuration:
+### Prerequisites: Environment Variables Setup
+
+Regardless of which method you choose, create a `.env` file in the project root:
 
 ```env
-GROQ_API_KEY=your_groq_api_key
-JWT_SECRET_KEY=your_secret_key
+# Required API Keys & Secrets
+GROQ_API_KEY=your_groq_api_key_here
+JWT_SECRET_KEY=your_jwt_secret_key_here
+
+# Optional Configurations (defaults shown)
+DEBUG=True
+DATABASE_URL=sqlite+aiosqlite:///./data/app.db
+JWT_ALGORITHM=HS256
+JWT_EXPIRE_MINUTES=60
+LLM_MODEL=llama-3.3-70b-versatile
+EMBEDDING_MODEL=all-MiniLM-L6-v2
+CHROMA_PERSIST_DIRECTORY=./data/chroma
+CHROMA_COLLECTION_NAME=company_documents
+GATE_THRESHOLD=0.45
+VECTOR_THRESHOLD=0.50
+MAX_RETRIEVED_CHUNKS=5
+
+# LangSmith Observability (Optional)
+LANGSMITH_TRACING=True
+LANGSMITH_PROJECT=agentic-rag
+LANGSMITH_API_KEY=your_langsmith_key_here
 ```
 
-#### 2. Build the Docker Image
+---
+
+### Option 1: Running with Docker
+
+#### 1. Build the Docker Image
 ```bash
 docker build -t agentic-rag .
 ```
 
-#### 3. Run the Container
+#### 2. Run the Container
 
-**Linux / macOS / PowerShell:**
+> **Note:** Quotes around the volume path (`"${PWD}/data:/project/data"`) are required on Windows/macOS if your directory path contains spaces.
+
+**PowerShell / Linux / macOS:**
 ```bash
 docker run -d \
   --name agentic-rag-app \
   -p 8000:8000 \
   --env-file .env \
-  -v ${PWD}/data:/project/data \
+  -v "${PWD}/data:/project/data" \
   agentic-rag
 ```
 
-**Windows (Command Prompt):**
+**Windows Command Prompt (cmd.exe):**
 ```cmd
 docker run -d --name agentic-rag-app -p 8000:8000 --env-file .env -v "%cd%/data:/project/data" agentic-rag
 ```
 
-> **Note:** Mounting the `./data` directory ensures that SQLite database records (`app.db`) and Chroma vector store embeddings persist across container restarts.
+#### 3. Verify the Container
+- API Health Check: [http://localhost:8000/health](http://localhost:8000/health)
+- Interactive Swagger Docs: [http://localhost:8000/docs](http://localhost:8000/docs)
 
-#### 4. Verify Application
-- Health check: [http://localhost:8000/health](http://localhost:8000/health)
-- API documentation (Swagger): [http://localhost:8000/docs](http://localhost:8000/docs)
-
-#### 5. Stop the Container
+#### 4. Stop the Container
 ```bash
 docker stop agentic-rag-app
 docker rm agentic-rag-app
 ```
+
+---
+
+### Option 2: Running without Docker (Local Python)
+
+#### 1. Create and Activate a Virtual Environment
+
+**Windows PowerShell:**
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+**Windows Command Prompt (cmd.exe):**
+```cmd
+python -m venv .venv
+.venv\Scripts\activate.bat
+```
+
+**Linux / macOS:**
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+#### 2. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+#### 3. Run the Backend API
+Start the FastAPI server using Uvicorn:
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+- API will be live at: [http://localhost:8000](http://localhost:8000)
+- Swagger docs at: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+#### 4. Run the Frontend
+The frontend consists of static HTML, CSS, and Vanilla JS configured with CORS for port `5500`.
+
+You can serve the frontend in two ways:
+- **Using Python's built-in HTTP server:**
+  ```bash
+  python -m http.server 5500 -d frontend
+  ```
+- **Using VSCode Live Server extension:** Right-click `frontend/login.html` and select **"Open with Live Server"**.
+
+Visit [http://localhost:5500/login.html](http://localhost:5500/login.html) in your browser.
 
 ---
 
