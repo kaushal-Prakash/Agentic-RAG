@@ -7,14 +7,18 @@ class User(Base):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+
     name: Mapped[str] = mapped_column(String(100), nullable=False)
+
     username: Mapped[str] = mapped_column(
         String(100),
         unique=True,
         nullable=False,
         index=True,
     )
+
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
+
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
         default=datetime.utcnow,
@@ -37,13 +41,17 @@ class Message(Base):
     __tablename__ = "messages"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+
     user_id: Mapped[int] = mapped_column(
         ForeignKey("users.id", ondelete="CASCADE"),
         nullable=False,
         index=True,
     )
+
     role: Mapped[str] = mapped_column(String(20), nullable=False)
+
     content: Mapped[str] = mapped_column(Text, nullable=False)
+
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
         default=datetime.utcnow,
@@ -55,17 +63,21 @@ class Message(Base):
     )
 
 
+# procedural memory is a place to store information about how an AI assistant should behave or perform tasks for a particular user.
 class ProceduralMemory(Base):
     __tablename__ = "procedural_memory"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+
     user_id: Mapped[int] = mapped_column(
         ForeignKey("users.id", ondelete="CASCADE"),
         unique=True,
         nullable=False,
         index=True,
     )
+
     memory: Mapped[str] = mapped_column(Text, nullable=False)
+    
     updated_at: Mapped[datetime] = mapped_column(
         DateTime,
         default=datetime.utcnow,
